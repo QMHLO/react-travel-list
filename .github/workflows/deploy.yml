@@ -21,7 +21,7 @@ jobs:
 
     - name: Deploy to Lightsail
       run: |
-        ssh ubuntu@18.143.37.84 <<EOF
+        ssh -o StrictHostKeyChecking=no ubuntu@18.143.37.84 <<EOF
         cd /home/bitnami/react-travel-list
         git pull
         npm install
