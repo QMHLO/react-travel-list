@@ -1,0 +1,30 @@
+name: Deploy React App to AWS Lightsail
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v2
+
+    - name: Install Dependencies
+      run: npm install
+
+    - name: Build React App
+      run: npm run build
+
+    - name: Deploy to Lightsail
+      run: |
+        ssh ubuntu@18.143.37.84 <<EOF
+        cd /home/bitnami/react-travel-list
+        git pull
+        npm install
+        npm run build
+        sudo systemctl restart nginx
+        EOF
